@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const type = {
-  mp4: 'video/mp4',
+  webm: 'video/webm',
 };
 function App() {
   const cameraRef = useRef(null);
@@ -46,7 +46,7 @@ function App() {
     const audioURL = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = audioURL;
-    link.download = 'camera.mp4';
+    link.download = 'camera.webm';
     link.click();
     URL.revokeObjectURL(link.href);
   };
@@ -54,7 +54,7 @@ function App() {
     const audioURL = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = audioURL;
-    link.download = 'screen.mp4';
+    link.download = 'screen.webm';
     link.click();
     URL.revokeObjectURL(link.href);
   };
@@ -116,7 +116,7 @@ function App() {
     const options = {
       audioBitsPerSecond: cameraAudioBitsPerSecond,
       videoBitsPerSecond: cameraVideoBitsPerSecond,
-      mimeType: 'video/webm',
+      mimeType: type.webm,
     };
     const recorder = new MediaRecorder(stream, options);
     cameraRecorderRef.current = recorder;
@@ -127,7 +127,7 @@ function App() {
     };
     recorder.onstop = () => {
       const blob = new Blob(cameraChunksRef.current, {
-        type: type.mp4,
+        type: type.webm,
       });
       saveCameraMedia(blob);
     };
@@ -137,7 +137,7 @@ function App() {
     const options = {
       audioBitsPerSecond: 12800,
       videoBitsPerSecond: screenAudioBitsPerSecond,
-      mimeType: 'video/webm',
+      mimeType: type.webm,
     };
     const recorder = new MediaRecorder(stream, options);
     screenRecorderRef.current = recorder;
@@ -148,7 +148,7 @@ function App() {
     };
     recorder.onstop = () => {
       const blob = new Blob(screenChunksRef.current, {
-        type: type.mp4,
+        type: type.webm,
       });
       saveScreenMedia(blob);
     };
